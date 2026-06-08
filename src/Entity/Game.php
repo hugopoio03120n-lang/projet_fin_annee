@@ -52,7 +52,7 @@ class Game
     /**
      * @var Collection<int, Serie>
      */
-    #[ORM\ManyToMany(targetEntity: Serie::class, mappedBy: 'gameSeries')]
+    #[ORM\ManyToMany(targetEntity: Serie::class, mappedBy: 'games')]
     private Collection $series;
 
     public function __construct()
@@ -213,7 +213,7 @@ class Game
     {
         if (!$this->series->contains($series)) {
             $this->series->add($series);
-            $series->addGameSeries($this);
+            $series->addGames($this);
         }
 
         return $this;
@@ -222,7 +222,7 @@ class Game
     public function removeSeries(Serie $series): static
     {
         if ($this->series->removeElement($series)) {
-            $series->removeGameSeries($this);
+            $series->removeGames($this);
         }
 
         return $this;

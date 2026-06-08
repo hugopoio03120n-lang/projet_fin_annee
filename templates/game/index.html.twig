@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Game index{% endblock %}
+
+{% block body %}
+    <h1>Game index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Console</th>
+                <th>ReleaseDate</th>
+                <th>GameStyle</th>
+                <th>Comment</th>
+                <th>Developor</th>
+                <th>Editor</th>
+                <th>Description</th>
+                <th>ImageOfTheBox</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.title }}</td>
+                <td>{{ game.console }}</td>
+                <td>{{ game.releaseDate ? game.releaseDate|date('Y-m-d') : '' }}</td>
+                <td>{{ game.gameStyle }}</td>
+                <td>{{ game.comment }}</td>
+                <td>{{ game.developor }}</td>
+                <td>{{ game.editor }}</td>
+                <td>{{ game.description }}</td>
+                <td>{{ game.imageOfTheBox }}</td>
+                <td>
+                    <a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
+                    <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_game_new') }}">Create new</a>
+{% endblock %}

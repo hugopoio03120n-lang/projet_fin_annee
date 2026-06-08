@@ -1,3 +1,101 @@
 body {
-    background-color: #404040;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+    background-color: #333;
+    color: white;
+}
+
+.left-container {
+    width: 350px;
+    height: 100%;
+    border-right: 10px solid #666;
+    padding: 30px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.user-picture img {
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+}
+
+.left-menu {
+    margin-top: 40px;
+}
+
+.menu-element {
+    text-align: center;
+    font-size: 1.6em;
+    background-color: #666;
+    border-radius: 10px;
+    padding: 20px 0;
+    margin: 20px;
+    transition: all .3s;
+}
+
+.menu-element:hover {
+    background-color: blue;
+}
+
+.menu-element a {
+    color: white;
+    text-decoration: none;
+}
+
+.search {
+    border-bottom: 10px solid #666;
+    height: 80px;
+    width: 100%;
+}
+
+.game-list {
+    padding: 20px;
+}
+
+.game-card {
+    display: flex;
+    background-color: #666;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.game-card .game-info {
+    flex-grow: 1;
+    padding: 12px;
+}
+
+.game-card .game-picture {
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    width: 100px;
+    border-left: 2px solid #333;
+}
+
+.game-card .game-picture img {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.game-card .game-info .up-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 3em;
+    text-transform: uppercase;
+}
+
+
+.game-card .game-info .up-info .favorite img {
+    width: 40px;
+    height: 40px;
 }

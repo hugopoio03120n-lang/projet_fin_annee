@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260527080309 extends AbstractMigration
+final class Version20260608123210 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,9 +23,11 @@ final class Version20260527080309 extends AbstractMigration
         $this->addSql('CREATE TABLE comment (id INT AUTO_INCREMENT NOT NULL, text LONGTEXT NOT NULL, user_id_id INT NOT NULL, INDEX IDX_9474526C9D86650F (user_id_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE game (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, console VARCHAR(255) NOT NULL, release_date DATE DEFAULT NULL, game_style VARCHAR(255) NOT NULL, comment VARCHAR(255) NOT NULL, developor VARCHAR(255) DEFAULT NULL, editor VARCHAR(255) DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, image_of_the_box VARCHAR(255) DEFAULT NULL, PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE history (id INT AUTO_INCREMENT NOT NULL, last_visit DATETIME NOT NULL, user_id_id INT DEFAULT NULL, game_id_id INT NOT NULL, INDEX IDX_27BA704B9D86650F (user_id_id), UNIQUE INDEX UNIQ_27BA704B4D77E7D8 (game_id_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
-        $this->addSql('CREATE TABLE serie (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, game VARCHAR(255) DEFAULT NULL, PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE serie (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE serie_game (serie_id INT NOT NULL, game_id INT NOT NULL, INDEX IDX_F84E25BED94388BD (serie_id), INDEX IDX_F84E25BEE48FD905 (game_id), PRIMARY KEY (serie_id, game_id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE user_game (user_id INT NOT NULL, game_id INT NOT NULL, INDEX IDX_59AA7D45A76ED395 (user_id), INDEX IDX_59AA7D45E48FD905 (game_id), PRIMARY KEY (user_id, game_id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0E3BD61CE16BA31DBBF396750 (queue_name, available_at, delivered_at, id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C9D86650F FOREIGN KEY (user_id_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE history ADD CONSTRAINT FK_27BA704B9D86650F FOREIGN KEY (user_id_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE history ADD CONSTRAINT FK_27BA704B4D77E7D8 FOREIGN KEY (game_id_id) REFERENCES game (id)');
@@ -33,7 +35,6 @@ final class Version20260527080309 extends AbstractMigration
         $this->addSql('ALTER TABLE serie_game ADD CONSTRAINT FK_F84E25BEE48FD905 FOREIGN KEY (game_id) REFERENCES game (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_game ADD CONSTRAINT FK_59AA7D45A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_game ADD CONSTRAINT FK_59AA7D45E48FD905 FOREIGN KEY (game_id) REFERENCES game (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE user ADD name VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
@@ -51,7 +52,8 @@ final class Version20260527080309 extends AbstractMigration
         $this->addSql('DROP TABLE history');
         $this->addSql('DROP TABLE serie');
         $this->addSql('DROP TABLE serie_game');
+        $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE user_game');
-        $this->addSql('ALTER TABLE user DROP name');
+        $this->addSql('DROP TABLE messenger_messages');
     }
 }
