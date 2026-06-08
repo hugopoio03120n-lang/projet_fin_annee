@@ -19,6 +19,21 @@
         {% endif %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="left-container">
+            <div class="user-picture">
+                <img src="https://placehold.co/400" alt="">
+            </div>
+            <div class="left-menu">
+                <div class="menu-history menu-element">
+                    <a href="#">History</a>
+                </div>
+                <div class="menu-favorites menu-element">
+                    <a href="#">Favorites</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-container">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

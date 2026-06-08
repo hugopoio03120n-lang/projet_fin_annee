@@ -18,18 +18,15 @@ class Serie
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $game = null;
-
     /**
      * @var Collection<int, Game>
      */
     #[ORM\ManyToMany(targetEntity: Game::class, inversedBy: 'series')]
-    private Collection $gameSeries;
+    private Collection $games;
 
     public function __construct()
     {
-        $this->gameSeries = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,38 +46,26 @@ class Serie
         return $this;
     }
 
-    public function getGame(): ?string
-    {
-        return $this->game;
-    }
-
-    public function setGame(?string $game): static
-    {
-        $this->game = $game;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Game>
      */
-    public function getGameSeries(): Collection
+    public function getGames(): Collection
     {
-        return $this->gameSeries;
+        return $this->games;
     }
 
-    public function addGameSeries(Game $gameSeries): static
+    public function addGames(Game $games): static
     {
-        if (!$this->gameSeries->contains($gameSeries)) {
-            $this->gameSeries->add($gameSeries);
+        if (!$this->games->contains($games)) {
+            $this->games->add($games);
         }
 
         return $this;
     }
 
-    public function removeGameSeries(Game $gameSeries): static
+    public function removeGames(Game $games): static
     {
-        $this->gameSeries->removeElement($gameSeries);
+        $this->games->removeElement($games);
 
         return $this;
     }

@@ -3,18 +3,36 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    body {
-        margin: 0; 
-    }
-    .wrapper { display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; grid-auto-rows: minmax(100px, auto);}
-    .left-box { background: #303030; display: flex; justify-content: flex-end; align-items: flex-end; }
-    .wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="search"></div>
+<div class="game-list">
+    {% for game in games %}
+        <div class="game-card">
+            <div class="game-info">
+                <div class="up-info">
+                    <div class="game-title">
+                        {{ game.title }}
+                    </div>
+                    <div class="favorite">
+                        <img src="https://placehold.co/400/orange/white" alt="">
+                    </div>
+                </div>
+                <div class="down-info">
+                    <div class="notation">
 
-<div class="wrapper">
-<div class="left-box">
+                    </div>
+                    <div class="platform">
 
-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="game-picture">
+                <img src={{ game.imageOfTheBox }} alt="">
+            </div>
+        </div>
+    {% else %}
+        <tr>
+            <td colspan="11">no records found</td>
+        </tr>
+    {% endfor %}
 </div>
 {% endblock %}
