@@ -1,6 +1,6 @@
 body {
     display: flex;
-    height: 100vh;
+    height: 41vw;
     width: 100vw;
     margin: 0;
     overflow-x: hidden;
@@ -26,10 +26,17 @@ body {
     border-radius: 100%;
     width: 100px;
     height: 100px;
+    margin: 20px;
 }
 
 .left-menu {
     margin-top: 40px;
+}
+
+.logo {
+    margin: 0;
+    font-family: 'jiro';
+    font-size: 64px;
 }
 
 .menu-element {

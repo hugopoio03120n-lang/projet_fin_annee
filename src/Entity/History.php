@@ -14,11 +14,11 @@ class History
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'histories')]
-    private ?User $userId = null;
+    private ?User $user = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Game $gameId = null;
+    private ?Game $game = null;
 
     #[ORM\Column]
     private ?\DateTime $lastVisit = null;
@@ -28,26 +28,26 @@ class History
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): static
+    public function setUser(?User $user): static
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getGameId(): ?Game
+    public function getGame(): ?Game
     {
-        return $this->gameId;
+        return $this->game;
     }
 
-    public function setGameId(Game $gameId): static
+    public function setGame(Game $game): static
     {
-        $this->gameId = $gameId;
+        $this->game = $game;
 
         return $this;
     }

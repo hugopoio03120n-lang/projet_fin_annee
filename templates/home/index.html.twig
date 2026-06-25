@@ -5,6 +5,7 @@
 {% block body %}
 <div class="search"></div>
 <div class="game-list">
+<div style= "height: 30vw; overflow-y: scroll;">
     {% for game in games %}
         <div class="game-card">
             <div class="game-info">
@@ -34,5 +35,6 @@
             <td colspan="11">no records found</td>
         </tr>
     {% endfor %}
+</div>
 </div>
 {% endblock %}

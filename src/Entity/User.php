@@ -41,13 +41,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'userId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $comments;
 
     /**
      * @var Collection<int, History>
      */
-    #[ORM\OneToMany(targetEntity: History::class, mappedBy: 'userId')]
+    #[ORM\OneToMany(targetEntity: History::class, mappedBy: 'user')]
     private Collection $histories;
 
     /**
@@ -168,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setUserId($this);
+            $comment->setUser($this);
         }
 
         return $this;
@@ -178,8 +178,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getUserId() === $this) {
-                $comment->setUserId(null);
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 
@@ -198,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->histories->contains($history)) {
             $this->histories->add($history);
-            $history->setUserId($this);
+            $history->setUser($this);
         }
 
         return $this;
@@ -208,8 +208,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->histories->removeElement($history)) {
             // set the owning side to null (unless already changed)
-            if ($history->getUserId() === $this) {
-                $history->setUserId(null);
+            if ($history->getUser() === $this) {
+                $history->setUser(null);
             }
         }
 
