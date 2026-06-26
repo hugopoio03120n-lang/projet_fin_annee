@@ -8,10 +8,6 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ game.id }}</td>
-            </tr>
-            <tr>
                 <th>Title</th>
                 <td>{{ game.title }}</td>
             </tr>
@@ -28,10 +24,6 @@
                 <td>{{ game.gameStyle }}</td>
             </tr>
             <tr>
-                <th>Comment</th>
-                <td>{{ game.comment }}</td>
-            </tr>
-            <tr>
                 <th>Developor</th>
                 <td>{{ game.developor }}</td>
             </tr>
@@ -44,8 +36,9 @@
                 <td>{{ game.description }}</td>
             </tr>
             <tr>
-                <th>ImageOfTheBox</th>
-                <td>{{ game.imageOfTheBox }}</td>
+            <div class="game-picture">
+                <img src={{ game.imageOfTheBox }} alt="">
+            </div>
             </tr>
         </tbody>
     </table>

@@ -22,11 +22,11 @@
             </tr>
         </thead>
         <tbody>
+        <div class="wrapper">
         {% for game in games %}
             <tr>
-                <td>{{ game.id }}</td>
-                <td>{{ game.title }}</td>
-                <td>{{ game.console }}</td>
+                <div class="one">{{ game.title }}</div>
+                <td class="two">{{ game.console }}</td>
                 <td>{{ game.releaseDate ? game.releaseDate|date('Y-m-d') : '' }}</td>
                 <td>{{ game.gameStyle }}</td>
                 <td>{{ game.comment }}</td>
@@ -44,6 +44,7 @@
                 <td colspan="11">no records found</td>
             </tr>
         {% endfor %}
+        </div>
         </tbody>
     </table>
 

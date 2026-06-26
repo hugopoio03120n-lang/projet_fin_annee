@@ -11,7 +11,7 @@
             <div class="game-info">
                 <div class="up-info">
                     <div class="game-title">
-                        {{ game.title }}
+                    <a href="{{ path('app_game_show', {'id': game.id}) }}">{{ game.title }}</a>
                     </div>
                     <div class="favorite">
                         <img src="https://placehold.co/400/orange/white" alt="">
