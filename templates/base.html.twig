@@ -21,17 +21,25 @@
     <body>
         <div class="left-container">
             <div class="user-picture">
+                {% if app.user %}
                 <img src="https://placehold.co/400" alt="">
+                {% endif %}
                 <p class="logo">GAME</p>
                 <h1 class="logo">Pedia</h1>
             </div>
             <div class="left-menu">
+                {% if app.user %}
                 <div class="menu-history menu-element">
-                    <a href="#">History</a>
+                    <a href="{{ path('app_game_history') }}">History</a>
                 </div>
                 <div class="menu-favorites menu-element">
-                    <a href="#">Favorites</a>
+                    <a href="{{ path('app_game_favorites') }}">Favorites</a>
                 </div>
+                {% else %}
+                <div class="menu-connection menu-element">
+                    <a href="/login">Connection</a>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="main-container">
