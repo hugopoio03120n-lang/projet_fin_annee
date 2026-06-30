@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\History;
 use App\Form\GameType;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,11 +15,30 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/game')]
 final class GameController extends AbstractController
 {
-    #[Route(name: 'app_game_index', methods: ['GET'])]
-    public function index(GameRepository $gameRepository): Response
+    #[Route('/favorites', name: 'app_game_favorites', methods: ['GET'])]
+    public function favorites(): Response
     {
-        return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->findAll(),
+        $user = $this->getUser();
+        $games = $user->getFavoritesGames();
+
+        return $this->render('game/favorites.html.twig', [
+            'games' => $games,
+        ]);
+    }
+
+    #[Route('/history', name: 'app_game_history', methods: ['GET'])]
+    public function history(): Response
+    {
+        $user = $this->getUser();
+        $histories = $user->getHistories();
+
+        // map histories to games
+        $games = $histories->map(function ($history) {
+            return $history->getGame();
+        });
+
+        return $this->render('game/history.html.twig', [
+            'games' => $games,
         ]);
     }
 
@@ -43,8 +63,23 @@ final class GameController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_game_show', methods: ['GET'])]
-    public function show(Game $game): Response
+    public function show(Game $game, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if ($user) { 
+            $histories = $user->getHistories(); 
+            $history = $histories->filter(function ($history) use ($game) {
+                return $history->getGame()->getId() === $game->getId();
+            })->first();    
+            if (!$history) {
+                $history = new History();
+                $history->setUser($user);
+                $history->setGame($game);
+                $entityManager->persist($history);
+            }
+            $history->setLastVisit(new \DateTime());
+            $entityManager->flush();
+        }
         return $this->render('game/show.html.twig', [
             'game' => $game,
         ]);
@@ -77,5 +112,26 @@ final class GameController extends AbstractController
         }
 
         return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/toggle-favorite', name: 'app_game_toggle_favorite', methods: ['GET'])]
+    public function toggleFavorite(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $game = $entityManager->getRepository(Game::class)->find($id);
+        $user = $this->getUser();
+
+        if (!$game || !$user) {
+            return $this->redirectToRoute('app_game_index');
+        }
+
+        if ($user->getFavoritesGames()->contains($game)) {
+            $user->removeFavoritesGame($game);
+        } else {
+            $user->addFavoritesGame($game);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_game_show', ['id' => $game->getId()]);
     }
 }

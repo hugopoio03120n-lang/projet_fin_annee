@@ -193,6 +193,15 @@ class Game
         return $this;
     }
 
+    public function isFavorite(?User $user): bool
+    {
+        if (null === $user) {
+            return false;
+        }
+
+        return $this->users->contains($user);
+    }
+
     /**
      * @return Collection<int, Serie>
      */

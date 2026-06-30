@@ -15,6 +15,11 @@
                 <p>{{ game.title }}</p>
                 </td>
             </tr>
+            {% if app.user %}
+            <tr class = "box">
+                <td><a href="{{ path('app_game_toggle_favorite', {'id': game.id}) }}"> {{ game.isFavorite(app.user) ? '❤️' : '🤍' }}</a></td>
+            </tr>
+            {% endif %}
             <tr class = "box">
                 <th>Console</th>
                 <td>{{ game.console }}</td>
@@ -47,7 +52,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_game_index') }}">back to list</a>
+    <a href="{{ path('app_home') }}">back to list</a>
 
     <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
 
