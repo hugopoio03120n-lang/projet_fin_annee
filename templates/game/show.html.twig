@@ -7,35 +7,39 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Title</th>
-                <td>{{ game.title }}</td>
+            <tr class = "box">
+                <th>
+                <p>Title</p>
+                </th>
+                <td> 
+                <p>{{ game.title }}</p>
+                </td>
             </tr>
-            <tr>
+            <tr class = "box">
                 <th>Console</th>
                 <td>{{ game.console }}</td>
             </tr>
-            <tr>
+            <tr class = "box">
                 <th>ReleaseDate</th>
                 <td>{{ game.releaseDate ? game.releaseDate|date('Y-m-d') : '' }}</td>
             </tr>
-            <tr>
+            <tr class = "box">
                 <th>GameStyle</th>
                 <td>{{ game.gameStyle }}</td>
             </tr>
-            <tr>
+            <tr class = "box">
                 <th>Developor</th>
                 <td>{{ game.developor }}</td>
             </tr>
-            <tr>
+            <tr class = "box">
                 <th>Editor</th>
                 <td>{{ game.editor }}</td>
             </tr>
-            <tr>
+            <tr class = "box">
                 <th>Description</th>
                 <td>{{ game.description }}</td>
             </tr>
-            <tr>
+            <tr class = "box">
             <div class="game-picture">
                 <img src={{ game.imageOfTheBox }} alt="">
             </div>
